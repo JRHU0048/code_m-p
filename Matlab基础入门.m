@@ -22,3 +22,6 @@
 
 %% 新建——函数：内置函数/自己编写的函数，和脚本一样，以.m后缀
 
+打开 MATLAB 的帮助中心：
+https://ww2.mathworks.cn/help/index.html
+
