@@ -3,21 +3,35 @@ disp('请输入判断矩阵A')     %输入
 A=input('A=');
 [n,n] = size(A);
 
+% 判断是否为正互反矩阵
+A = [1 0.2 5; 5 1 0.2; 0.2 5 1]; % 将矩阵赋值给变量A
+if all(A>0) && all(all(A==inv(A)))
+    disp('该矩阵是正互反矩阵')
+else
+    disp('该矩阵不是正互反矩阵')
+end
+
+% 判断是否为一致矩阵
+if all(sum(A)==1)
+    disp('该矩阵是一致矩阵')
+else
+    disp('该矩阵不是一致矩阵')
+    
 % % % % % % % % % % % % %方法1： 算术平均法求权重% % % % % % % % % % % % %
-Sum_A = sum(A);
+Sum_A = sum(A);    %将矩阵每一列的元素相加，返回一个行向量
 SUM_A = repmat(Sum_A,n,1);
 Stand_A = A ./ SUM_A;
 disp('算术平均法求权重的结果为：');
 disp(sum(Stand_A,2)./n)
 
 % % % % % % % % % % % % %方法2： 几何平均法求权重% % % % % % % % % % % % %
-Prduct_A = prod(A,2);
+Prduct_A = prod(A,2);   %将矩阵每一列的元素相乘，返回一个行向量
 Prduct_n_A = Prduct_A .^ (1/n);
 disp('几何平均法求权重的结果为：');
 disp(Prduct_n_A ./ sum(Prduct_n_A))
 
 % % % % % % % % % % % % %方法3： 特征值法求权重% % % % % % % % % % % % %
-[V,D] = eig(A);
+[V,D] = eig(A);    %通过 [V,D] = eig(A) 将矩阵 A 的特征向量存储在 V 中，特征值存储在 D 的对角线上。
 Max_eig = max(max(D));
 [r,c]=find(D == Max_eig , 1);
 disp('特征值法求权重的结果为：');
