@@ -1,3 +1,5 @@
+day_1022
+
 % 假设row和row2是两组数据
 data = [row, row2]; % 将两组数据合并为一个矩阵
 corrMatrix = corrcoef(data); % 计算相关系数矩阵
@@ -110,3 +112,89 @@ scatter(x,y,'filled','MarkerEdgeColor',[0 .5 .5],'MarkerFaceColor',[0 .7 .7],'Li
 plot(x,y)
 plot(x,y,'--r','LineWidth',2)  %这样绘制的折线图中，线条为红色虚线，线条宽度为2。
 
+
+day_1025
+
+>> % 数据
+categories = {'大洋洲', '西亚', '独联体', '北美', '欧洲', '东亚', '中东', '北非', '拉丁', '印度'};
+barData1 = [28, 20, 19, 18, 18, 13, 13, 12, 11, 11]; % 淡色条形图数据
+barData2 = [384, 364, 227, 301, 181, 50, 0, 0, 0, 318]; % 深色条形图数据
+lineData = [418, 384, 246, 319, 199, 63, 13, 12, 11, 329]; % 折线图数据
+
+% 创建图形
+figure('Color', 'white');
+axes('FontSize', 10, 'Box', 'off', 'LineWidth', 1.5);
+
+% 创建堆叠条形图
+b = bar([barData1; barData2]', 'stacked');
+
+% 设置条形图颜色和样式
+b(1).FaceColor = [0.8, 0.8, 0.8];
+b(2).FaceColor = [0.2, 0.6, 1];
+b(1).EdgeColor = 'none';
+b(2).EdgeColor = 'none';
+
+% 在条形图上显示数值
+for i = 1:length(barData1)
+    text(i, barData1(i)/2, num2str(barData1(i)), 'HorizontalAlignment', 'center', 'VerticalAlignment', 'middle', 'FontSize', 8);
+    text(i, barData1(i) + barData2(i) - (barData2(i)/2), num2str(barData2(i)), 'HorizontalAlignment', 'center', 'VerticalAlignment', 'middle', 'FontSize', 8);
+end
+
+hold on;
+
+% 创建折线图
+yyaxis right;
+p = plot(lineData, 'o-', 'LineWidth', 2, 'Color', 'k', 'MarkerSize', 6, 'MarkerFaceColor', 'k');
+set(gca, 'YColor', 'k');
+
+% 在折线图上显示数值
+for i = 1:length(lineData)
+    text(i, lineData(i), ['  ' num2str(lineData(i))], 'FontSize', 8, 'Color', 'k', 'VerticalAlignment', 'bottom');
+end
+
+% 设置图表标题和标签
+title('2022年某公司地区分布', 'FontSize', 14, 'FontWeight', 'normal');
+ylabel('数量');
+set(gca, 'XTick', 1:length(categories), 'XTickLabel', categories, 'TickLabelInterpreter', 'none', 'TickDir', 'out', 'TickLength', [0.02 0.025]);
+legend({'淡色数据', '深色数据', '折线图数据'}, 'Location', 'northwest', 'Box', 'off');
+
+% 调整坐标轴外观
+ax = gca;
+ax.YAxis(1).Color = 'k';
+ax.YAxis(2).Color = 'k';
+grid on;
+
+hold off;
+
+day_1026
+
+**二维气泡云图   由散点图函数画出，有点局限性
+% 生成随机数据
+X = rand(100, 1) * 100; % X坐标
+Y = rand(100, 1) * 100; % Y坐标
+S = rand(100, 1) * 100; % 点的大小
+C = rand(100, 1) * 100; % 点的颜色
+
+% 绘制气泡图
+scatter(X, Y, S, C, 'filled');   %scatter函数是用来绘制散点图的，填充就是气泡云图，有点局限性
+colorbar; % 显示颜色条
+xlabel('X-axis');
+ylabel('Y-axis');
+title('2D Bubble Chart');
+
+
+**三维散点图  气泡云图
+% 生成随机数据
+X = rand(100,1) * 100; % X坐标，100个0到100之间的数
+Y = rand(100,1) * 100; % Y坐标
+Z = rand(100,1) * 100; % Z坐标
+S = rand(100,1) * 100; % 每个点的大小
+C = rand(100,1) * 100; % 每个点的颜色
+
+% 绘制气泡图
+scatter3(X, Y, Z, S, C, 'filled');
+colorbar; % 显示颜色条
+xlabel('X-axis');
+ylabel('Y-axis');
+zlabel('Z-axis');
+title('3D Bubble Chart');
